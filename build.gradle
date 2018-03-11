@@ -1,0 +1,38 @@
+group 'generator'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'javafx-gradle-plugin'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'fr.bretzel.mcgenerator.MCGenerator'
+        )
+    }
+}
+
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+
+    }
+}
+
+jfx {
+    // minimal requirement for jfxJar-task
+    mainClass = 'fr.bretzel.mcgenerator.MCGenerator'
+
+    // minimal requirement for jfxNative-task
+    vendor = 'MrBretzel'
+}

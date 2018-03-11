@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+         <children>
+            <VBox>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <children>
+                  <Label text="Primary Color" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ListView fx:id="PRIMARY_COLOR" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <GridPane fx:id="GRID_PANE" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </VBox.margin>
+                     <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" minWidth="10.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="108.0" minHeight="66.0" prefHeight="66.0" valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" vgrow="ALWAYS" />
+                        <RowConstraints valignment="CENTER" />
+                     </rowConstraints>
+                     <children>
+                        <ImageView fx:id="CENTERED_IMAGE" cache="true" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.vgrow="ALWAYS">
+                           <image>
+                              <Image url="@../models/tropical_fish/model_a_0.png" />
+                           </image>
+                        </ImageView>
+                        <RadioButton fx:id="BUTTON_MODEL_A" alignment="CENTER_LEFT" contentDisplay="CENTER" mnemonicParsing="false" text="Model A" GridPane.halignment="LEFT">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <RadioButton fx:id="BUTTON_MODEL_B" mnemonicParsing="false" text="Model B" GridPane.halignment="RIGHT">
+                           <GridPane.margin>
+                              <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                           </GridPane.margin>
+                        </RadioButton>
+                        <MenuButton fx:id="PATTERN_BUTTON" mnemonicParsing="false" text="Pattern">
+                           <GridPane.margin>
+                              <Insets top="20.0" />
+                           </GridPane.margin>
+                        </MenuButton>
+                        <Label fx:id="PATTERN_LABEL" text="Label">
+                           <GridPane.margin>
+                              <Insets bottom="30.0" />
+                           </GridPane.margin>
+                        </Label>
+                     </children>
+                  </GridPane>
+               </children>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+            <VBox>
+               <HBox.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </HBox.margin>
+               <children>
+                  <Label text="Secondary Color">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <ListView fx:id="SECONDARY_COLOR" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <TextField fx:id="OUTPUT_COMMAND" alignment="BOTTOM_CENTER" editable="false">
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </TextField>
+   </children>
+</VBox>
