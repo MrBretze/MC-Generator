@@ -27,7 +27,8 @@ public class MCGenerator extends Application
         primaryStage.show();
     }
 
-    public static int getVarient(Color a, Color b, int model, int pattern) {
-        return (a.getId()<<24) + (b.getId()<<16) + (pattern<<8) + (model);
+    public static int getVarient(Color a, Color b, int model, int pattern)
+    {
+        return (a.getId() << 24) + (b.getId() << 16) + (pattern << 8) + (model);
     }
 }
