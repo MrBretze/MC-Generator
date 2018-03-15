@@ -2,9 +2,8 @@ package fr.bretzel.mcgenerator.controler;
 
 import fr.bretzel.mcgenerator.MCGenerator;
 import fr.bretzel.mcgenerator.util.Color;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -12,11 +11,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -44,10 +42,7 @@ public class TropicalController implements Initializable
     private MenuButton PATTERN_BUTTON;
 
     @FXML
-    private Label PATTERN_LABEL;
-
-    @FXML
-    private GridPane GRID_PANE;
+    private BorderPane BORDER_PANE;
 
     private int PATTERN = 1;
 
@@ -76,13 +71,13 @@ public class TropicalController implements Initializable
             SECONDARY_COLOR.getItems().add(label);
         }
 
-        PATTERN_LABEL.setText("Selected: 1");
+        PATTERN_BUTTON.setText("Selected: 1");
 
         for (int i = 1; i <= 6; i++)
         {
             MenuItem item = new MenuItem(String.valueOf(i));
             item.setOnAction(event -> {
-                PATTERN_LABEL.setText("Selected: " + item.getText());
+                PATTERN_BUTTON.setText("Selected: " + item.getText());
                 PATTERN = Integer.valueOf(item.getText());
                 update();
             });
@@ -104,6 +99,9 @@ public class TropicalController implements Initializable
 
         model.selectedToggleProperty().addListener((observable, oldValue, newValue) -> update());
 
+        CENTERED_IMAGE.fitWidthProperty().bind(BORDER_PANE.widthProperty());
+        CENTERED_IMAGE.fitWidthProperty().bind(BORDER_PANE.widthProperty());
+
         update();
     }
 
@@ -120,6 +118,7 @@ public class TropicalController implements Initializable
         OUTPUT_COMMAND.setText("/summon minecraft:tropical_fish ~ ~ ~ {Variant:" + value + "}");
 
         URL path = MCGenerator.class.getResource("/models/tropical_fish/model_" + (BUTTON_MODEL_A.isSelected() ? "a" : "b") + "_" + (PATTERN - 1) + ".png");
+
         CENTERED_IMAGE.setImage(getTropicalFishImage(new Image(path.toExternalForm()), Color.getColorByDisplayName(pdisplay), Color.getColorByDisplayName(sdisplay)));
     }
 
@@ -135,7 +134,6 @@ public class TropicalController implements Initializable
 
                 if (!((color >> 24) == 0x00))
                 {
-
                     // extract each color component
                     int alpha = (color >> 24) & 0xff;
                     int red = (color >>> 16) & 0xFF;
@@ -145,12 +143,7 @@ public class TropicalController implements Initializable
                     // calc luminance in range 0.0 to 1.0; using SRGB luminance constants
                     float luminance = (red * 0.2126f + green * 0.7152f + blue * 0.0722f) / 255;
 
-                    if (red >= 250)
-                    {
-                        java.awt.Color c = new java.awt.Color(0, 0, 0, 0);
-                        image.setRGB(x, y, c.getRGB());
-                        continue;
-                    } else if (luminance >= 0.45f)
+                    if (luminance >= 0.45f)
                     {
                         image.setRGB(x, y, getPixelColor(secondary, alpha));
                         continue;
@@ -163,24 +156,16 @@ public class TropicalController implements Initializable
                         image.setRGB(x, y, color);
                         continue;
                     }
+                } else
+                {
+                    java.awt.Color c = new java.awt.Color(0, 0, 0, 0);
+                    image.setRGB(x, y, c.getRGB());
+                    continue;
                 }
             }
         }
 
         return SwingFXUtils.toFXImage(image, null);
-    }
-
-    public final int filterRGB(int rgb, int markerRGB)
-    {
-        if ((rgb | 0xFF000000) == markerRGB)
-        {
-            // Mark the alpha bits as zero - transparent
-            return 0x00FFFFFF & rgb;
-        } else
-        {
-            // nothing to do
-            return rgb;
-        }
     }
 
     public int getPixelColor(Color color, int alpha)
